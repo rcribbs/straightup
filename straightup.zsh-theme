@@ -20,7 +20,7 @@ GIT_PROMPT_SUFFIX="%{$reset_color%} "
 #     changed = green
 #     untracked = cyan
 GIT_PROMPT_MODIFIED="%{$fg_bold[red]%}*%{$reset_color%}"
-GIT_PROMPT_STAGED="%{$fg_bold[yellow]%}+%{$reset_color%}"
+GIT_PROMPT_STAGED="%{$fg_bold[green]%}+%{$reset_color%}"
 
 _git_status_symbol() {
     git_status = $(git status --porcelain ^/dev/null)
