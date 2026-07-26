@@ -17,6 +17,17 @@ GIT_PROMPT_SUFFIX="%F{white}%F{reset})"
 GIT_PROMPT_MODIFIED="%B%F{red}*%b%F{reset}"
 GIT_PROMPT_STAGED="%B%F{green}+%b%F{reset}"
 
+local this_file="${funcsourcetrace[1]%:*}"
+if is-at-least 4.3.10; then
+    # "A" flag (turn a file name into an absolute path with symlink
+    # resolution) is only available on 4.3.10 and latter
+    local cur_dir="${this_file:A:h}"
+else
+    local cur_dir="${this_file:h}"
+fi
+
+source "${cur_dir}/shrink_path.zsh";
+
 _git_most_common_extension() {
     echo git ls-files | sed -n 's/..*\.//p' | uniq -c | sort -r | HEAD -1 |\
         awk '{ print $2 }'
@@ -52,7 +63,7 @@ _git_prompt_string() {
 }
 
 _get_path() {
-    shrink_path -f
+    _su_shrink_path -f
 }
 
 function _remote_hostname() {
